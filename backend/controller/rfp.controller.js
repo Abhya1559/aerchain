@@ -103,8 +103,6 @@ export const rfpAgent = async (req, res) => {
     };
 
     await transporter.sendMail(mailOption);
-    console.log(`Password reset email sent to ${email}`);
-
     return res.status(200).json({
       success: true,
       message: "API fetching data",
