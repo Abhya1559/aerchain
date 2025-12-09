@@ -1,9 +1,10 @@
 import "./App.css";
+import PromptBox from "./components/PromptBox";
 
 function App() {
   return (
     <>
-      <h1 className="font-bold text-3xl font-serif">hello</h1>
+      <PromptBox />
     </>
   );
 }
