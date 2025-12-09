@@ -2,8 +2,6 @@ import { HumanMessage } from "langchain";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { z } from "zod";
 import "dotenv/config";
-// import dotenv from "dotenv";
-// dotenv.config({ path: "../.env" });
 
 const RFP_SCHEMA = z
   .object({
@@ -28,8 +26,7 @@ const RFP_SCHEMA = z
       .describe("A concise natural language summary of the complete order."),
   })
   .describe("A structured procurement request for proposal (RFP).");
-// let api = process.env.GOOGLE_API_KEY;
-// console.log(api);
+
 const config = {
   api: process.env.GOOGLE_API_KEY,
   model: "gemini-2.5-flash",
