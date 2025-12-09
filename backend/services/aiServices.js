@@ -2,8 +2,8 @@ import { HumanMessage } from "langchain";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { z } from "zod";
 import "dotenv/config";
-
-// dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config({ path: "../.env" });
 
 const RFP_SCHEMA = z
   .object({
