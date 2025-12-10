@@ -1,10 +1,11 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 
 export default function PromptBox() {
   const [messages, setMessages] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setErrors] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,15 +15,16 @@ export default function PromptBox() {
       const res = await fetch("http://localhost:3000/api/rfp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, message: messages }),
+        body: JSON.stringify({ message: messages, email: email }),
       });
       const data = await res.json();
       if (!res.ok) {
         setErrors(data.message || "Error while sending order");
-        setMessages("");
-        setEmail("");
         return;
       }
+      setMessages("");
+      setEmail("");
+      setSuccess(true);
 
       console.log("Success:", data);
     } catch (error) {
@@ -32,7 +34,6 @@ export default function PromptBox() {
       setErrors("Server error");
     } finally {
       setLoading(false);
-      setErrors("");
     }
   };
 
@@ -65,7 +66,7 @@ export default function PromptBox() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder=" " /* MUST HAVE a single space */
+            placeholder=" "
             className="peer block w-full h-16 px-5 pt-6 pb-2 text-lg text-white 
                bg-white/10 rounded-2xl border border-white/30 
                backdrop-blur-md shadow-lg outline-none
@@ -119,6 +120,28 @@ export default function PromptBox() {
           </p>
         )}
       </form>
+      {success && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 animate-fade-in">
+          <div className="bg-white/10 border border-white/20 rounded-3xl p-10 shadow-2xl backdrop-blur-xl text-center max-w-md mx-auto animate-fade-in">
+            <h2 className="text-3xl font-bold text-green-400 mb-4">
+              Request Sent!
+            </h2>
+
+            <p className="text-gray-200 text-lg mb-8">
+              Your request has been successfully sent to the vendor.
+            </p>
+
+            <button
+              onClick={() => setSuccess(false)}
+              className="px-8 py-3 rounded-2xl bg-gradient-to-r 
+                         from-purple-500 to-indigo-500 text-white font-semibold
+                         shadow-lg active:scale-95 transition-all"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes fade-in {
