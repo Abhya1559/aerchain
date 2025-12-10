@@ -133,7 +133,7 @@ export default function PromptBox() {
 
             <button
               onClick={() => setSuccess(false)}
-              className="px-8 py-3 rounded-2xl bg-gradient-to-r 
+              className="px-8 py-3 rounded-2xl cursor-pointer bg-gradient-to-r 
                          from-purple-500 to-indigo-500 text-white font-semibold
                          shadow-lg active:scale-95 transition-all"
             >
